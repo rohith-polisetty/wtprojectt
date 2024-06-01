@@ -1,0 +1,167 @@
+.layout
+{
+	display:flex;
+	flex-direction:column;
+}
+
+.header
+{
+	display:grid;
+	grid-template-columns:200px 1000px 100px;
+	position:fixed;
+	z-index:100;
+	margin-top:-10px;
+	background-color:rgb(255,255,255);
+}
+
+.logo
+{
+	
+	width:80px;
+	height:30px;
+	margin-left:100px;
+	margin-top:27px;
+}
+.quantity
+{
+	font-family:Arial;
+	font-size:26px;
+	color:rgb(0,6,7);
+	margin-left:300px;
+	font-weight:600;
+	margin-top:23px;
+}
+.lock
+{
+	width:50px;
+	height:50px;
+	margin-top:25px;
+}
+.allinfo
+{
+	display:grid;
+	grid-template-columns:900px 500px 100px;
+	position:relative;
+}
+.costcal
+{
+	border:1px solid rgb(216, 215, 213);
+	margin-left:50px;
+	margin-top:170px;
+	margin-right:100px;
+	padding-top:20px;
+	padding-left:20px;
+	padding-bottom:20px;
+	padding-right:5px;
+	border-radius:5px;
+	display:inline;
+}
+.details
+{
+	display:flex;
+	flex-direction:column;
+	margin-top:100px;
+	margin-left:100px;
+}
+.para
+{
+	font-size:22px;
+	font-weight:bold;
+	color:rgb(0,6,7);
+	font-family:Arial;
+	
+	
+}
+.box
+{
+	display:flexbox;
+	flex-direction:column;
+	border:1px solid rgb(216, 215, 213);
+	padding:20px;
+	padding-right:80px;
+	border-radius:5px;
+	margin-top:20px;
+	
+}
+.info
+{
+	color:green;
+	font-size:19px;
+	font-weight:bold;
+	font-family:Arial;
+	
+}
+
+.line2
+{
+	display:grid;
+	grid-template-columns:100px 350px 250px;
+	margin-top:20px;
+}
+.itemimage
+{
+	width:100px;
+	height:130px;
+}
+.itemdetails
+{
+	margin-top:10px;
+	margin-left:30px;
+}
+.deliverydetails
+{
+	display:flex;
+	flex-direction:column;
+	margin-left:30px;
+}
+.option
+{
+	display:grid;
+	grid-template-columns:30px 300px;
+}
+.costandinfo
+{
+	display:grid;
+	grid-template-columns:250px 50px;
+	position:relative;
+}
+.placeorder
+{
+	background-color:rgba(245, 189, 11, 0.8);
+	color:black;
+	padding-left:90px;
+	padding-right:90px;
+	padding-top:12px;
+	padding-bottom:12px;
+	border:none;
+	border-radius:10px;
+	margin-top:10px;
+	font-size:15px;
+	text-decoration:none;
+}
+.newlyadded
+{
+	display:flexbox;
+	flex-direction:column;
+	position:relative;
+	margin-top:10px;
+	margin-left:100px;
+	margin-right:430px;
+}
+.emptycart
+{
+	font-size:17px;
+	font-family:Roboto;
+}
+.emptybutton
+{
+	padding-top:5px;
+	padding-bottom:5px;
+	padding-left:15px;
+	padding-right:15px;
+	border:none;
+	border-radius:10px;
+	font-size:18px;
+	font-family:Roboto;
+	background-color:rgba(245, 189, 11, 0.8);;
+}

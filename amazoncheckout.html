@@ -1,0 +1,324 @@
+<html>
+	<head>
+		<link rel='stylesheet' href='amazoncheckout.css'>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	</head>
+	<body>
+	<div class='layout'> 
+		<div class='header'>
+			<div>
+				<img src='amazonlogo.png' class='logo'>
+			</div>
+			<div class='quantity'>
+				<span>Checkout(<span style='color:teal'></span>)</span>
+			</div>
+			<div class='lock'>
+				<img src='lockicon.png'>
+			</div>
+		</div>
+		<div class='allinfo'>
+			<div class='details'>
+				<p class='para'>Review Your Order</p>
+				<div></div>
+			</div>
+			<div class='costcal'>
+				<div style='font-weight:bold;color:rgb(0,6,7);font-size:20px;font-family:Roboto;'>Order Summary</div>
+				<div class='costandinfo'>
+					<div>
+						<div style='margin-top:10px;color:rgb(111, 110, 108);font-size:17px;'></div>
+						<div  style='margin-top:5px;color:rgb(111, 110, 108);font-size:17px;'>Shipping & handling:</div>
+						<div  style='margin-top:17px;color:rgb(111, 110, 108);font-size:17px;'>Total before tax:</div>
+						<div  style='margin-top:5px;color:rgb(111, 110, 108);font-size:17px;'>Estimated tax (10%):</div>
+						<hr>
+						<div style='margin-top:15px;font-family:Roboto;font-size:20px;color:brown;font-weight:bold;'>Order total:</div>
+					</div>
+					<div>
+						<div class='cost' style='margin-top:10px;color:rgb(111, 110, 108);font-size:17px;'></div>
+						<div class='sh' style='margin-top:5px;color:rgb(111, 110, 108);font-size:17px;'></div>
+						<div class='bt' style='margin-top:17px;color:rgb(111, 110, 108);font-size:17px;'></div>
+						<div class='at' style='margin-top:5px;color:rgb(111, 110, 108);font-size:17px;'></div>
+						<hr>
+						<div class='ot' style='margin-top:15px;font-family:Roboto;font-size:20px;color:brown;font-weight:bold;'></div>
+					</div>
+				</div>
+				<div style='font-family:Roboto;font-size:19px;color:rgb(88, 87, 85);margin-top:15px'>
+					Use PayPal
+					<input type='checkbox' style='transform:scale(1.5);margin-left:8px;'>
+				</div>
+				<div style='margin-top:30px;'>
+					<button class='placeorder' >Place your order</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class='newlyadded'>
+	</div>
+	
+		
+		<script>
+			
+			let addeditemsobject=JSON.parse(localStorage.getItem('addeditemsobject'));
+			let htmlcode='';
+			for(let i=0;i<addeditemsobject.length;i++)
+			{
+				htmlcode=htmlcode+
+				
+				`<div class='box'>
+					<div class='info'>
+						Delivery Date : Tuesday , March 19
+					</div>
+					<div class='line2'>
+						<div>
+							<img class='itemimage' src='${addeditemsobject[i].img}'>
+						</div>
+						<div class='itemdetails'>
+							<div style='color:rgb(0,6,7);font-size:17px;font-weight:bold;font-family:Arial'>
+								${addeditemsobject[i].name}
+							</div>
+							<div style='color:brown;font-size:18px;margin-top:5px;font-weight:bold;'>
+								${addeditemsobject[i].cost}
+							</div>
+							<div style='color:grey;font-size:18px;margin-top:5px;'>
+								<span>Quantity:${addeditemsobject[i].number}</span>
+								<span><a href='#' class='update' data-id=${addeditemsobject[i].productid} style='margin-left:5px;text-decoration:none;'>Update</a></span>
+								<span><a href='#' class='delete' data-id=${addeditemsobject[i].productid} style='text-decoration:none;margin-left:5px;'>Delete</a></span>
+							</div>
+						</div>
+						<div class='deliverydetails'>
+							<div style='color:rgb(0,6,7);font-weight:bold;font-size:17px;font-family:Arial;margin-top:11px'>
+								Choose a delivery option:
+							</div>
+							<div class='option'>
+								<input type='radio' style='margin-top:25px;transform: scale(1.3);'>
+								<div style='color:green;font-weight:bold;font-family:Arial;font-size:16px;margin-top:20px;'>
+									Tuesday, March 19
+								</div>
+								<br>
+								<div style='color:grey;font-size:17px;margin-top:0px;'>
+									FREE Shipping
+								</div>
+							</div>
+							<div class='option'>
+								<input type='radio' style='margin-top:25px;transform: scale(1.3);'>
+								<div style='color:green;font-weight:bold;font-family:Arial;font-size:16px;margin-top:17px;'>
+									Wednesday, March 13
+								</div>
+								<br>
+								<div style='color:grey;font-size:17px;margin-top:0px'>
+									$4.99 - Shipping
+								</div>
+							</div>
+							<div class='option'>
+								<input type='radio' style='margin-top:25px;transform: scale(1.3);'>
+								<div style='color:green;font-weight:bold;font-family:Arial;font-size:16px;margin-top:17px;'>
+									Monday, March 11
+								</div>
+								<br>
+								<div style='color:grey;font-size:17px;margin-top:0px'>
+									$9.99 - Shipping
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>`;
+			}
+			$('p:first').next('div').append(htmlcode)
+			
+		</script>
+		<script>
+			$(document).ready(function()
+			{
+				let a=JSON.parse(localStorage.getItem('addeditems'));
+				$('.quantity').children('span').children('span').text(`${a} items`);
+			});
+		</script>
+		<script>
+			$(document).ready(function()
+			{
+			let totcost;
+			//localStorage.setItem('totcost',totcost.toString());
+			totcost=parseFloat(localStorage.getItem('totcost'));
+			console.log(totcost);
+			console.log(typeof(totcost));
+			if(totcost==null)
+			{
+				totcost=0.00;
+				
+			}
+			else
+			{
+				totcost=parseFloat(totcost);
+			}
+			addeditemsobject=JSON.parse(localStorage.getItem('addeditemsobject'));
+			for(let i=0;i<addeditemsobject.length;i++)
+			{
+				let str=addeditemsobject[i].cost;
+				let n=parseFloat(str.substring(1,str.length));
+				totcost=totcost+n;
+			}
+			
+			
+			let addtext1='$'+((totcost).toFixed(2));
+			let addtext2='$'+((0.00).toFixed(2));
+			let addtext3='$'+((totcost).toFixed(2));
+			let addtext4='$'+(((totcost)/10).toFixed(2));
+			let ordertotal='$'+((totcost)+(totcost/10)).toFixed(2);
+			let ot=((totcost)+(totcost/10)).toFixed(2);
+			
+			localStorage.setItem('ordertotal',ot.toString());
+			
+			$('.cost').text(`${addtext1}`);
+			$('.sh').text(`${addtext2}`);
+			$('.bt').text(`${addtext3}`);
+			$('.at').text(`${addtext4}`);
+			$('.ot').text(`${ordertotal}`);
+			
+			});
+			let add=JSON.parse(localStorage.getItem('addeditems'));
+			let items=`Items (${add}):`;
+			$('.costandinfo').children('div:first').children('div:first').text(`${items}`);
+			
+			
+		</script>
+		<script>
+			$(document).ready(function()
+			{
+				$(document).on('click', '.delete', function(event)
+				{
+					event.preventDefault();
+					
+					let deleteid=$(this).data('id');
+					let addeditemsobject=JSON.parse(localStorage.getItem('addeditemsobject'));
+					for(let i=0;i<addeditemsobject.length;i++)
+					{
+						
+						if(addeditemsobject[i].productid==deleteid)
+						{
+							let addeditems=JSON.parse(localStorage.getItem('addeditems'));
+							addeditems=addeditems-1;
+							localStorage.setItem('addeditems',JSON.stringify(addeditems));
+							addeditemsobject.splice(i,1);
+							localStorage.setItem('addeditemsobject',JSON.stringify(addeditemsobject));
+							$('p:first').next('div').empty();
+							addeditemsobject=JSON.parse(localStorage.getItem('addeditemsobject'));
+							let htmlcode='';
+							for(let j=0;j<addeditemsobject.length;j++)
+							{
+								htmlcode=htmlcode+
+								`<div class='box'>
+									<div class='info'>
+										Delivery Date : Tuesday , March 19
+									</div>
+									<div class='line2'>
+										<div>
+											<img class='itemimage' src='${addeditemsobject[j].img}'>
+										</div>
+										<div class='itemdetails'>
+											<div style='color:rgb(0,6,7);font-size:17px;font-weight:bold;font-family:Arial'>
+												${addeditemsobject[j].name}
+											</div>
+											<div style='color:brown;font-size:18px;margin-top:5px;font-weight:bold;'>
+												${addeditemsobject[j].cost}
+											</div>
+											<div style='color:grey;font-size:18px;margin-top:5px;'>
+												<span>Quantity:${addeditemsobject[j].number}</span>
+												<span><a href='#' class='update' data-id=${addeditemsobject[j].productid} style='margin-left:5px;text-decoration:none;'>Update</a></span>
+												<span><a href='#' class='delete' data-id=${addeditemsobject[j].productid} style='text-decoration:none;margin-left:5px;'>Delete</a></span>
+											</div>
+										</div>
+										<div class='deliverydetails'>
+											<div style='color:rgb(0,6,7);font-weight:bold;font-size:17px;font-family:Arial;margin-top:11px'>
+												Choose a delivery option:
+											</div>
+											<div class='option'>
+												<input type='radio' style='margin-top:25px;transform: scale(1.3);'>
+												<div style='color:green;font-weight:bold;font-family:Arial;font-size:16px;margin-top:20px;'>
+													Tuesday, March 19
+												</div>
+												<br>
+												<div style='color:grey;font-size:17px;margin-top:0px;'>
+													FREE Shipping
+												</div>
+											</div>
+											<div class='option'>
+												<input type='radio' style='margin-top:25px;transform: scale(1.3);'>
+												<div style='color:green;font-weight:bold;font-family:Arial;font-size:16px;margin-top:17px;'>
+													Wednesday, March 13
+												</div>
+												<br>
+												<div style='color:grey;font-size:17px;margin-top:0px'>
+													$4.99 - Shipping
+												</div>
+											</div>
+											<div class='option'>
+												<input type='radio' style='margin-top:25px;transform: scale(1.3);'>
+												<div style='color:green;font-weight:bold;font-family:Arial;font-size:16px;margin-top:17px;'>
+													Monday, March 11
+												</div>
+												<br>
+												<div style='color:grey;font-size:17px;margin-top:0px'>
+													$9.99 - Shipping
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>`;	
+							}
+							$('p:first').next('div').append(htmlcode);
+							let added=JSON.parse(localStorage.getItem('addeditems'));
+							$('.quantity').children('span').children('span').text(`${added}`);
+							
+							break;
+						}
+					}
+						
+					
+			
+				});
+			});
+		</script>
+		<script>
+			$(document).ready(function()
+			{
+				$('.placeorder').click(function(event)
+				{
+					
+					
+					event.preventDefault();
+					console.log($('p:first').next('div').text());
+					$('p:first').next('div').html(
+					`<p class='emptycart'>Your cart is empty.</p>
+					<button class='emptybutton'>View Products</button>`);
+					localStorage.setItem('contentModified', true);
+					window.location.href = 'amazonorders.html';
+						
+				});
+				const contentModified = localStorage.getItem('contentModified');
+				if (contentModified === 'true') 
+				{
+					$('p:first').next('div').html(
+						`<p class='emptycart'>Your cart is empty.</p>
+						 <button class='emptybutton'>View Products</button>`
+					);
+					$('.cost').text('$0.00');
+					$('.sh').text('$0.00');
+					$('.bt').text('$0.00');
+					$('.at').text('$0.00');
+				}
+						
+				
+			});
+		</script>
+		
+		<script>
+			$(document).ready(function()
+			{
+				$('.emptybutton').click(function ()
+				{
+					window.location.href='amazon.html';
+				});
+			});
+		</script>
+		
+	</body>
+</html>

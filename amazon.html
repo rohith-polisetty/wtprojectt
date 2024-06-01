@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>amazon</title>
+		<link rel='stylesheet' href='amazon.css'>
+		<link rel='stylesheet' href='innerstyles.css'>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	</head>
+	<body>
+	<div class='finallayout'>
+		<div class='header'>
+			<div class='amazonlogo'>
+				<img class='logo' src='alogo.png'>
+			</div>
+			<div class='search'>
+				<input class='searchbar' type='text' placeholder='Search'>
+			</div>
+			<div class='searchicon'>
+				<img class='sicon' src='asearch.png'>
+			</div>
+			<div></div>
+			<a href='amazonorders.html' target='_self' class='returnorder'>
+				<div class='cartmsg1'>
+						<span class='text1'>Returns</span>
+						<span class='text2'>Orders</span>
+				</div>
+			</a>
+			<div></div>
+				<div class='checkoutstyles'>
+					<a href='amazoncheckout.html' target='_self' class='checkout'>
+						<img class='cicon' src='acart.png'>
+						<div class='orderquantity'></div>
+						<div class='cartmsg2'>Cart</div>
+					</a>
+				</div>
+			<div></div>	
+			
+			
+		</div>
+		<div class='images'>
+		</div>
+		
+			
+	</div>
+		
+		
+		
+		
+		
+		
+		
+		
+		<script src='amazon.js'></script>
+		<script>
+			
+			let addeditemsobject=localStorage.getItem('addeditemsobject');
+//localStorage.setItem('addeditems',0);	
+//localStorage.setItem('addeditemsobject',JSON.stringify([]));			
+			let addeditems=localStorage.getItem('addeditems');
+			if(addeditems==null)
+			{
+				addeditems=0;
+			}
+			else
+			{
+				addeditems=parseInt(addeditems);
+			}
+			if(addeditemsobject==null)
+			{
+				addeditemsobject=[];
+			}
+			else
+			{
+				addeditemsobject=JSON.parse(localStorage.getItem('addeditemsobject'));
+			}
+			
+			$(document).ready(function()
+			{
+				$('button.addcart').click(function(event)
+				{
+					addeditems=addeditems+1;
+					localStorage.setItem('addeditems',addeditems.toString());
+					$('.orderquantity').text(localStorage.getItem('addeditems'));
+					let searcheditem=$(this).parent().children('p:first').text();
+					let n=$(this).parent().children('select:first').val();
+					for(let i=0;i<cartcontainer.length;i++)
+					{
+						if(cartcontainer[i].name==searcheditem)
+						{
+							addeditemsobject.push(
+							{
+								img:cartcontainer[i].img,
+								name:cartcontainer[i].name,
+								cost:cartcontainer[i].cost,
+								productid:cartcontainer[i].productid,
+								number:n
+								
+							});
+							localStorage.setItem('addeditemsobject',JSON.stringify(addeditemsobject));
+							
+						}
+					}
+					localStorage.removeItem('contentModified');
+					
+ 					
+				});
+				
+			});
+		</script>
+	</body>
+	
+</html>

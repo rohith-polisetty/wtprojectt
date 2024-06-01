@@ -1,0 +1,132 @@
+<html>
+	<head>
+		<link rel='stylesheet' href='amazonorders.css'>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	</head>
+	<body>
+		<div class='layout'>
+			<div class='header'>
+				<div class='amazonlogo'>
+				<img class='logo' src='alogo.png'>
+				</div>
+				<div class='search'>
+					<input class='searchbar' type='text' placeholder='Search'>
+				</div>
+				<div class='searchicon'>
+					<img class='sicon' src='asearch.png'>
+				</div>
+				<div>
+				</div>
+				<a href='amazonorders.html' target='_self'>
+					<div class='cartmsg1'>
+						<span class='text1'>Returns</span>
+						<span class='text2'>Orders</span>
+					</div>
+				</a>
+				<div></div>
+				<a href='amazoncheckout.html' class='checkout'>
+					<div class='checkoutstyles'>
+						<img class='cicon' src='acart.png'>
+						<div class='orderquantity'></div>
+						<div class='cartmsg2'>Cart</div>
+					</div>
+				</a>	
+			</div>
+			<p style='color:rgb(0,6,7);font-family:Arial;font-size:30px;margin-top:120px;font-weight:bold;margin-left:250px;'>
+					 Your Orders
+			</p>
+			<div class='totalcontent'>
+				<div class='tablehead'>
+					<div>
+						<span style='color:rgb(0,6,7);font-size:20px;font-family:Roboto;font-weight:bold;'>Order Placed:</span>
+						<br>
+						<span style='color:rgb(69, 68, 66);font-size:20px;font-family:Roboto;margin-top:8px;'></span>
+					</div>
+					<div>
+						<span style='color:rgb(0,6,7);font-size:20px;font-family:Roboto;font-weight:bold;'>Total:</span>
+						<br>
+						<span style='color:rgb(69, 68, 66);font-size:20px;font-family:Roboto;margin-top:8px;'></span>
+					</div>
+					<div>
+						<span style='color:rgb(0,6,7);font-size:20px;font-family:Roboto;font-weight:bold;'>Order ID: </span>
+						<br>
+						<span style='color:rgb(69, 68, 66);font-size:20px;font-family:Roboto;margin-top:8px;'>
+							6af8b159-2b1c-a1d6-776d-9be1f45d510c
+						</span>
+					</div>
+				</div>
+				<div>
+				</div>
+				
+			</div>
+		</div>
+		<script>
+			$(document).ready(function()
+			{
+				
+				let date=new Date();
+				d1=date.getDate();
+				d2=date.getMonth()+1;
+				d3=date.getFullYear();
+				
+				let adddate=d1+'-'+d2+'-'+d3;
+				let addtotalcost=parseFloat(localStorage.getItem('ordertotal'));
+				addtotal=addtotalcost;
+				addtotalcost=0.00;
+				totcost=0;
+				localStorage.setItem('totcost',totcost.toString());
+				localStorage.setItem('ordertotal',addtotalcost.toString());
+				
+				$('.tablehead').children('div:first').children('span:last').text(`${adddate}`);
+				$('.tablehead').children('div:first').next('div').children('span:last').text(`${addtotal}`);
+				let addeditemsobject=JSON.parse(localStorage.getItem('addeditemsobject'));
+				let htmlcode='';
+				for(let i=0;i<addeditemsobject.length;i++)
+				{
+					htmlcode=htmlcode+
+					`<div class='body'>
+						<div>
+							<img src=${addeditemsobject[i].img} class='image'>
+						</div>
+						<div class='content'>
+							<div style='font-size:20px;font-family:Roboto:color:rgb(0,6,7);font-weight:bold;margin-top:20px;'>
+								${addeditemsobject[i].name}
+							</div>
+							<div style='color:rgb(69, 68, 66);margin-top:5px;font-size:19px;font-family:Roboto;margin-top:4px;'>
+								Arriving on: March 11	
+							</div >
+							<div style='color:rgb(69, 68, 66);margin-top:5px;font-size:19px;font-family:Roboto;margin-top:4px;'>
+								Quantity: ${addeditemsobject[i].number}
+							</div>
+							<div class='buybutton'>
+								<div>
+									<img class='buyimage' src='buyagain.png'>
+								</div>
+								<button class='buyagain'>Buy it Again</button>
+							</div>
+						</div>
+						<div>
+							<button class='package'>Track Package</button>
+						</div>
+					</div>`;
+					
+				}
+				$('.tablehead').next('div').html(htmlcode);
+				addeditemsobject=[];
+				localStorage.setItem('addeditemsobject',JSON.stringify(addeditemsobject));
+				
+			});
+		</script>
+		<script>
+			$(document).ready(function()
+			{
+				let addeditems=JSON.parse(localStorage.getItem('addeditems'));
+				localStorage.setItem('addeditems',addeditems.toString());
+				$('.orderquantity').text(`${addeditems}`);
+				let ref=localStorage.getItem('ref');
+				ref=1;
+				localStorage.setItem('ref',ref.toString());
+			});
+		</script>
+	</body>
+</html>
